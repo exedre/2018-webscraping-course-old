@@ -9,3 +9,9 @@ class QuotesSpider(scrapy.Spider):
 
     def parse(self, response):
         self.log('Visito : '+response.url)
+        yield {
+            'autore': response.css('div.purple > p:nth-child(1) > a::text').extract_first(),
+            'opera': response.css('div.purple > p:nth-child(1) > i > a::text').extract_first(),
+            'citazione': response.css('div.purple > p:nth-child(1) > b::text').extract_first()
+        }
+
